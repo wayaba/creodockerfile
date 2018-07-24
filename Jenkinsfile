@@ -36,7 +36,6 @@ pipeline {
     }
 
 	stages {
-	/*
 		stage('SonarQube analysis') {
 			steps {
 				script {
@@ -85,25 +84,22 @@ pipeline {
 			{
 			
 				steps{
-						echo "Ejecuto el newman para llamar a la collection de postman"						
-						//sh 'docker run --rm -t postman/newman_ubuntu1404 run https://www.getpostman.com/collections/968a33a4326a6494ede6'
-						//sh 'newman run /var/jenkins_home/workspace/Pipeline1/postman_collection.json'
+						echo 'Ejecuto la validacion de SPOCK'
+						sh 'gradle clean test'
 						
 					}
 			
 				
 			}
-			*/
 			
-			stage('Test')
+			
+		stage('Pruebo parametros de ambiente')
 			{
 			
 				steps {
-					sh 'gradle --version'
-						sh 'gradle clean test'
 					script {
 						loadProperties(params.environment)
-						//echo "Later one ${properties.puerto}"
+						echo "Later one ${properties.puerto}"
 						}
 				}
 			
