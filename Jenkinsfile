@@ -30,7 +30,6 @@ pipeline {
 	parameters {
         string(name: 'mqsihome', defaultValue: '/opt/ibm/ace-11.0.0.0', description: '')
 		string(name: 'workspacesdir', defaultValue: '/var/jenkins_home/workspace/creodockerfile', description: '')
-		string(name: 'barname', defaultValue: '/var/jenkins_home/workspace/bar/apimascotas2.bar', description: '')
 		string(name: 'appname', defaultValue: 'ApiMascotas', description: '')
 		string(name: 'environment', defaultValue: 'desa', description: '')
     }
@@ -61,8 +60,16 @@ pipeline {
 					}
 				}
 				steps{
-						echo "EJECUTO ${params.mqsihome}/server/bin/mqsipackagebar -w ${params.workspacesdir} -a ${params.barname} -k ${params.appname}"
-						sh "${params.mqsihome}/server/bin/mqsipackagebar -w ${params.workspacesdir} -a ${params.barname} -k ${params.appname}"
+						echo "EJECUTO ${params.mqsihome}/server/bin/mqsipackagebar -w ${params.workspacesdir} -a ${params.workspacesdir}/abc.bar -k ${params.appname}"
+						sh "${params.mqsihome}/server/bin/mqsipackagebar -w ${params.workspacesdir} -a ${params.workspacesdir}/abc.bar -k ${params.appname}"
+					}
+					
+			}
+		stage('Compilacion 2')
+			{
+				steps{
+						echo "EJECUTO dockerfile"
+						sh "docker build -t sarasa ."
 					}
 					
 			}
