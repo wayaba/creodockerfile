@@ -69,7 +69,7 @@ pipeline {
 			{
 				steps{
 						echo "EJECUTO dockerfile"
-						echo "export DOCKER_ID_USER='ppedraza'"
+						sh "docker login -u ppedraza -p belgranob"
 						sh "docker build -t sarasa ."
 					}
 					
