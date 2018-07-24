@@ -28,7 +28,7 @@ pipeline {
     }
 	
 	parameters {
-        string(name: 'mqsihome', defaultValue: '/opt/ibm/iib-10.0.0.11', description: '')
+        string(name: 'mqsihome', defaultValue: '/opt/ibm/ace-11.0.0.0', description: '')
 		string(name: 'workspacesdir', defaultValue: '/var/jenkins_home/workspace/creodockerfile', description: '')
 		string(name: 'barname', defaultValue: '/var/jenkins_home/workspace/bar/apimascotas2.bar', description: '')
 		string(name: 'appname', defaultValue: 'ApiMascotas', description: '')
