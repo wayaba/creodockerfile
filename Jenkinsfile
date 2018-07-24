@@ -99,7 +99,8 @@ pipeline {
 			{
 			
 				steps {
-					
+					sh 'gradle --version'
+						sh 'gradle clean test'
 					script {
 						loadProperties(params.environment)
 						//echo "Later one ${properties.puerto}"
