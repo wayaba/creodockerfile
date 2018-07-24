@@ -36,6 +36,7 @@ pipeline {
     }
 
 	stages {
+	/*
 		stage('SonarQube analysis') {
 			steps {
 				script {
@@ -51,12 +52,12 @@ pipeline {
 				}
 			}
 		}
-		
+		*/
 		stage('Compilacion')
 			{
 				agent {
-					docker { image 'ibmcom/iib:latest' 
-							args '-u 0:0 -e LICENSE=accept -e NODENAME=DesaDocker1 -e SERVERNAME=MiSERVER1'
+					docker { image 'ibmcom/ace:latest' 
+							args '-e LICENSE=accept'
 					}
 				}
 				steps{
@@ -65,7 +66,7 @@ pipeline {
 					}
 					
 			}
-		
+		/*
 		stage('Deploy')
 			{
 				agent {
@@ -105,6 +106,6 @@ pipeline {
 			
 				
 			}
-			
+		*/	
 	}
 }
