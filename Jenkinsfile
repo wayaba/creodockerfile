@@ -31,7 +31,7 @@ pipeline {
         string(name: 'mqsihome', defaultValue: '/opt/ibm/ace-11.0.0.0', description: '')
 		string(name: 'workspacesdir', defaultValue: '/var/jenkins_home/workspace/creodockerfile', description: '')
 		string(name: 'appname', defaultValue: 'ApiMascotas', description: '')
-		choice(name: 'environment', choices: "desa\test\prod", description: 'selecciona el ambiente' )
+		choice(name: 'environment', choices: "desa\ntest\nprod", description: 'selecciona el ambiente' )
     }
 
 	stages {
