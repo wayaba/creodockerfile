@@ -18,6 +18,7 @@ RUN bash -c 'mqsicreateworkdir /home/aceuser/ace-server && mqsibar -w /home/aceu
 # Switch off the admin REST API for the server run, as we won't be deploying anything after start
 RUN sed -i 's/adminRestApiPort/#adminRestApiPort/g' /home/aceuser/ace-server/server.conf.yaml 
 
+RUN sudo chmod 666 /etc/bash.bashrc
 
 RUN echo "export ODBCINI=/opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/odbc.ini" >> /etc/bash.bashrc
 RUN echo "export ODBCSYSINI=/opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/odbcinst.ini" >> /etc/bash.bashrc
