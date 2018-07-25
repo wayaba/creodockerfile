@@ -69,6 +69,9 @@ pipeline {
 			{
 				
 				steps{
+					script {
+						loadProperties(params.environment)
+						}
 						//sh "docker ps -a"
 						echo "EJECUTO dockerfile"
 						//sh "docker login -u ppedraza -p belgranob"
