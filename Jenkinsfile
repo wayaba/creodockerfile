@@ -31,8 +31,7 @@ pipeline {
         string(name: 'mqsihome', defaultValue: '/opt/ibm/ace-11.0.0.0', description: '')
 		string(name: 'workspacesdir', defaultValue: '/var/jenkins_home/workspace/creodockerfile', description: '')
 		string(name: 'appname', defaultValue: 'ApiMascotas', description: '')
-		string(name: 'environment', defaultValue: 'desa', description: '')
-		choice(name: 'myParameter',choices: "Option1\nOption2",description: 'interesting stuff' )
+		choice(name: 'environment', choices: "desa\test\prod", description: 'selecciona el ambiente' )
     }
 
 	stages {
@@ -72,7 +71,7 @@ pipeline {
 				steps{
 						//sh "docker ps -a"
 						echo "EJECUTO dockerfile"
-						sh "docker login -u ppedraza -p belgranob"
+						//sh "docker login -u ppedraza -p belgranob"
 						sh "docker build -t sarasa ."
 					}
 					
