@@ -10,7 +10,7 @@ FROM ibmcom/ace
 ENV BAR1=abc.bar
 
 # Copy in the bar file to a temporary directory
-COPY $BAR1 /tmp
+COPY --chown=aceuser $BAR1 /tmp
 
 RUN pwd
 RUN cd /tmp && ls -l
