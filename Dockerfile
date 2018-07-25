@@ -5,7 +5,7 @@
 # which accompanies this distribution, and is available at
 # http://www.eclipse.org/legal/epl-v20.html
 
-FROM ace:11.0.0.0
+FROM ibmcom/ace
 
 ENV BAR1=abc.bar
 
