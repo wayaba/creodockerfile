@@ -12,7 +12,7 @@ ENV BAR1=abc.bar
 # Copy in the bar file to a temporary directory
 COPY $BAR1 /tmp
 
-RUN echo pwd
+RUN pwd
 
 # Unzip the BAR file; need to use bash to make the profile work
 RUN bash -c 'mqsicreateworkdir /home/aceuser/ace-server && mqsibar -w /home/aceuser/ace-server -a tmp/$BAR1 -c'
