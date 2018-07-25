@@ -67,10 +67,11 @@ pipeline {
 			}
 		stage('Compilacion 2')
 			{
+				sh "docker ps -a"
 				steps{
 						echo "EJECUTO dockerfile"
-						sh "docker login -u ppedraza -p belgranob"
-						sh "docker build -t sarasa ."
+						//sh "docker login -u ppedraza -p belgranob"
+						//sh "docker build -t sarasa ."
 					}
 					
 			}
