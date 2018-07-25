@@ -10,7 +10,7 @@ FROM ibmcom/ace
 ENV BAR1=abc.bar
 
 # Copy in the bar file to a temporary directory
-COPY --chown=aceuser $BAR1 /tmp
+COPY $BAR1 /tmp
 
 # Unzip the BAR file; need to use bash to make the profile work
 RUN bash -c 'mqsicreateworkdir' /home/aceuser/ace-server && mqsibar -w /home/aceuser/ace-server -a /
