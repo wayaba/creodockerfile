@@ -32,6 +32,7 @@ pipeline {
 		string(name: 'workspacesdir', defaultValue: '/var/jenkins_home/workspace/creodockerfile', description: '')
 		string(name: 'appname', defaultValue: 'ApiMascotas', description: '')
 		string(name: 'environment', defaultValue: 'desa', description: '')
+		choice(name: 'myParameter',choices: "Option1\nOption2",description: 'interesting stuff' )
     }
 
 	stages {
