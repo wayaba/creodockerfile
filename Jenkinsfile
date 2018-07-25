@@ -69,10 +69,10 @@ pipeline {
 			{
 				
 				steps{
-						sh "docker ps -a"
+						//sh "docker ps -a"
 						echo "EJECUTO dockerfile"
-						//sh "docker login -u ppedraza -p belgranob"
-						//sh "docker build -t sarasa ."
+						sh "docker login -u ppedraza -p belgranob"
+						sh "docker build -t sarasa ."
 					}
 					
 			}
