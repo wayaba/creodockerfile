@@ -23,4 +23,7 @@ RUN sudo chmod 666 /etc/bash.bashrc
 RUN echo "export ODBCINI=/opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/odbc.ini" >> /etc/bash.bashrc
 RUN echo "export ODBCSYSINI=/opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/odbcinst.ini" >> /etc/bash.bashrc
 
+RUN pwd
+COPY /tmp/odbc.ini /opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/
+
 # We inherit the command from the base layer

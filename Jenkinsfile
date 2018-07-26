@@ -67,13 +67,15 @@ pipeline {
 					
 			}
 			*/
+		stage('Load Env Parameters')
+			steps{
+				script{
+					loadProperties(params.environment)
+				}
+			}
 		stage('Replaces')
 			{
-				
 				steps{
-					script {
-						loadProperties(params.environment)
-						}						
 						//sh "docker build -t sarasa . -ARGS puerto=$properties.puerto url=$"
 						//sh "docker build -t sarasa ."
 						//sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini"
@@ -94,6 +96,10 @@ pipeline {
 						
 					}
 					
+			}
+		stage('Build Image')
+			steps{
+				sh "docker build -t sarasa ."
 			}
 		/*
 		stage('Deploy')
