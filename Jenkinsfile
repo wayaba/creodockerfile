@@ -68,11 +68,13 @@ pipeline {
 			}
 			*/
 		stage('Load Env Parameters')
+		{
 			steps{
 				script{
 					loadProperties(params.environment)
 				}
 			}
+		}
 		stage('Replaces')
 			{
 				steps{
