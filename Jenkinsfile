@@ -78,6 +78,7 @@ pipeline {
 						//sh "docker build -t sarasa . -ARGS puerto=$properties.puerto url=$"
 						//sh "docker build -t sarasa ."
 						sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini"
+						echo "${properties.SQLLOCAL.port}"
 					}
 					
 			}
