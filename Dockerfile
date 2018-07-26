@@ -8,9 +8,13 @@
 FROM ibmcom/ace
 
 ENV BAR1=abc.bar
+ENV ODBC=odbc.ini
 
 # Copy in the bar file to a temporary directory
 COPY --chown=aceuser $BAR1 /tmp
+
+# Copy odbc.ini file to a temporary directory
+COPY $ODBC /opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/
 
 # Unzip the BAR file; need to use bash to make the profile work
 RUN bash -c 'mqsicreateworkdir /home/aceuser/ace-server && mqsibar -w /home/aceuser/ace-server -a /tmp/$BAR1 -c'
@@ -22,8 +26,5 @@ RUN sudo chmod 666 /etc/bash.bashrc
 
 RUN echo "export ODBCINI=/opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/odbc.ini" >> /etc/bash.bashrc
 RUN echo "export ODBCSYSINI=/opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/odbcinst.ini" >> /etc/bash.bashrc
-
-RUN pwd
-COPY /tmp/odbc.ini /opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/
 
 # We inherit the command from the base layer

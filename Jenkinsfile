@@ -96,6 +96,7 @@ pipeline {
 						sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | \
 							sed -e 's,#SQLLOCAL.installdir#,${params.mqsihome},' > /tmp/odbc.ini"
 						
+						sh "cp /tmp/odbc.ini ${params.workspacesdir}"
 					}
 					
 			}
