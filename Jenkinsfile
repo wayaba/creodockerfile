@@ -52,6 +52,7 @@ pipeline {
 			}
 		}
 		*/
+		/*
 		stage('Compilacion')
 			{
 				agent {
@@ -65,6 +66,7 @@ pipeline {
 					}
 					
 			}
+			*/
 		stage('Compilacion 2')
 			{
 				
@@ -78,7 +80,7 @@ pipeline {
 						//sh "docker build -t sarasa . -ARGS puerto=$properties.puerto url=$"
 						//sh "docker build -t sarasa ."
 						//sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini"
-						echo "holaa ${properties.SQLLOCAL-port}"
+						echo "holaa ${properties.'SQLLOCAL.port'}"
 						//echo "hola ${properties.SQLLOCAL.port}"
 					}
 					
