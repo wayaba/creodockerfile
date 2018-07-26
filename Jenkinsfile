@@ -98,7 +98,12 @@ pipeline {
 		stage('Build Image')
 		{
 			steps{
-				sh "docker build -t sarasa ."
+				sh "docker build -t sarasa:1.0 ."
+				
+				//borro odbc.ini del workspace y del tmp
+				sh "rm /tmp/odbc.ini"
+				sh "rm ${params.workspacesdir}/odbc.ini"
+				
 			}
 		}
 		
