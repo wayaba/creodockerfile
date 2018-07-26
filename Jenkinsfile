@@ -81,7 +81,7 @@ pipeline {
 						//sh "docker build -t sarasa ."
 						//sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini"
 						echo "holaa ${properties.'SQLLOCAL.port'}"
-						sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | /
+						sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | 
 							sed -e 's/#SQLLOCAL.port#/${properties.'SQLLOCAL.port'}/' > /tmp/odbc.ini"
 						
 						//echo "hola ${properties.SQLLOCAL.port}"
