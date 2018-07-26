@@ -89,8 +89,8 @@ pipeline {
 						sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | \
 							sed -e 's/#SQLLOCAL.hostname#/${properties.'SQLLOCAL.hostname'}/' > /tmp/odbc.ini"
 							
-						sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | \
-							sed -e 's/#SQLLOCAL.installdir#/${params.mqsihome}/' > /tmp/odbc.ini"
+						//sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | \
+						//	sed -e 's,#SQLLOCAL.installdir#,${params.mqsihome}' > /tmp/odbc.ini"
 						
 					}
 					
