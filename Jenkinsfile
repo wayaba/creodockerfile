@@ -100,9 +100,12 @@ pipeline {
 					
 			}
 		stage('Build Image')
+		{
 			steps{
 				sh "docker build -t sarasa ."
 			}
+		}
+		
 		/*
 		stage('Deploy')
 			{
