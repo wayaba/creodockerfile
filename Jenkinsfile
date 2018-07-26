@@ -77,9 +77,9 @@ pipeline {
 						//sh "docker login -u ppedraza -p belgranob"
 						//sh "docker build -t sarasa . -ARGS puerto=$properties.puerto url=$"
 						//sh "docker build -t sarasa ."
-						sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini"
-						echo "${properties.SQLLOCAL-port}"
-						echo "${properties.SQLLOCAL.port}"
+						//sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini"
+						echo "holaa ${properties.SQLLOCAL-port}"
+						//echo "hola ${properties.SQLLOCAL.port}"
 					}
 					
 			}
