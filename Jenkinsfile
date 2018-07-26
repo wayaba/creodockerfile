@@ -73,18 +73,25 @@ pipeline {
 				steps{
 					script {
 						loadProperties(params.environment)
-						}
-						//sh "docker ps -a"
-						echo "EJECUTO dockerfile"
-						//sh "docker login -u ppedraza -p belgranob"
+						}						
 						//sh "docker build -t sarasa . -ARGS puerto=$properties.puerto url=$"
 						//sh "docker build -t sarasa ."
 						//sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini"
-						echo "holaa ${properties.'SQLLOCAL.port'}"
+						
+						echo "Realizo replace en odbc.ini"
+						
 						sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | \
 							sed -e 's/#SQLLOCAL.port#/${properties.'SQLLOCAL.port'}/' > /tmp/odbc.ini"
 						
-						//echo "hola ${properties.SQLLOCAL.port}"
+						sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | \
+							sed -e 's/#SQLLOCAL.database#/${properties.'SQLLOCAL.database'}/' > /tmp/odbc.ini"
+							
+						sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | \
+							sed -e 's/#SQLLOCAL.hostname#/${properties.'SQLLOCAL.hostname'}/' > /tmp/odbc.ini"
+							
+						sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | \
+							sed -e 's/#SQLLOCAL.installdir#/${params.mqsihome}/' > /tmp/odbc.ini"
+						
 					}
 					
 			}
