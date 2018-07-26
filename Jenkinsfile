@@ -75,7 +75,9 @@ pipeline {
 						//sh "docker ps -a"
 						echo "EJECUTO dockerfile"
 						//sh "docker login -u ppedraza -p belgranob"
-						sh "docker build -t sarasa ."
+						//sh "docker build -t sarasa . -ARGS puerto=$properties.puerto url=$"
+						//sh "docker build -t sarasa ."
+						sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini"
 					}
 					
 			}
