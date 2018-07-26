@@ -85,16 +85,11 @@ pipeline {
 						echo "Realizo replace en odbc.ini"
 						
 						sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | \
-							sed -e 's,#SQLLOCAL.port#,${properties.'SQLLOCAL.port'},' > /tmp/odbc.ini"
-						
-						sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | \
-							sed -e 's,#SQLLOCAL.database#,${properties.'SQLLOCAL.database'},' > /tmp/odbc.ini"
-							
-						sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | \
-							sed -e 's,#SQLLOCAL.hostname#,${properties.'SQLLOCAL.hostname'},' > /tmp/odbc.ini"
-							
-						sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | \
-							sed -e 's,#SQLLOCAL.installdir#,${params.mqsihome},' > /tmp/odbc.ini"
+							sed -e 's,#SQLLOCAL.port#,${properties.'SQLLOCAL.port'},' \
+								-e 's,#SQLLOCAL.database#,${properties.'SQLLOCAL.database'},' \
+								-e 's,#SQLLOCAL.hostname#,${properties.'SQLLOCAL.hostname'},' \
+								-e 's,#SQLLOCAL.installdir#,${params.mqsihome},' \
+							> /tmp/odbc.ini"
 						
 						sh "cp /tmp/odbc.ini ${params.workspacesdir}"
 					}
