@@ -20,7 +20,7 @@ COPY $ODBC /opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/
 RUN bash -c 'mqsicreateworkdir /home/aceuser/ace-server && mqsibar -w /home/aceuser/ace-server -a /tmp/$BAR1 -c'
 
 # Switch off the admin REST API for the server run, as we won't be deploying anything after start
-RUN sed -i 's/adminRestApiPort/#adminRestApiPort/g' /home/aceuser/ace-server/server.conf.yaml 
+#RUN sed -i 's/adminRestApiPort/#adminRestApiPort/g' /home/aceuser/ace-server/server.conf.yaml 
 
 RUN sudo chmod 666 /etc/bash.bashrc
 
