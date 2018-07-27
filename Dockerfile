@@ -28,6 +28,6 @@ RUN echo "export ODBCINI=/opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/odbc.ini" >>
 RUN echo "export ODBCSYSINI=/opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/odbcinst.ini" >> /etc/bash.bashrc
 
 #Configuracion de entorno para ejecutar comandos de broker
-RUN source /opt/ibm/ace-11.0.0.0/server/bin/mqsiprofile
+RUN . /opt/ibm/ace-11.0.0.0/server/bin/mqsiprofile
 
 # We inherit the command from the base layer
