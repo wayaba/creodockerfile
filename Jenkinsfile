@@ -98,7 +98,7 @@ pipeline {
 		stage('Build Image')
 		{
 			steps{
-				sh "docker build -t ace-mascotas:2.0 ."
+				sh "docker build -t ace-mascotas ."
 				//sh "docker tag sarasa:2.0 sarasa:latest"
 
 				//borro odbc.ini del workspace y del tmp
