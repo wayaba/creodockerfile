@@ -36,4 +36,4 @@ RUN sudo mv IntegrationServer  IntSer-pablo
 RUN sudo touch IntegrationServer
 RUN sudo chmod 777 IntegrationServer
 RUN sudo echo -e "export ODBCINI=/opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/odbc.ini \n export ODBCSYSINI=/opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/odbcinst.ini \n IntSer-pablo \$*" >> IntegrationServer
-RUN mqsisetdbparms -w /home/aceuser/ace-server -n SQLLOCAL -u sa -p Password0!
+RUN ./mqsisetdbparms -w /home/aceuser/ace-server -n SQLLOCAL -u sa -p Password0!
