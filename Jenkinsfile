@@ -114,7 +114,7 @@ pipeline {
 				sh 'docker run -e LICENSE=accept -d -P --name probando3 ace-mascotas'
 				
 				sh '''
-					${params.mqsihome}/server/bin/mqsisetdbparms -w /home/aceuser/ace-server -n SQLLOCAL -u sa -p Password0!
+					/opt/ibm/ace-11.0.0.0/server/bin/mqsisetdbparms -w /home/aceuser/ace-server -n SQLLOCAL -u sa -p Password0!
 					'''
 			}
 		}
