@@ -34,4 +34,5 @@ RUN echo "source /opt/ibm/ace-11.0.0.0/server/bin/mqsiprofile" >> /etc/bash.bash
 WORKDIR /opt/ibm/ace-11.0.0.0/server/bin/
 RUN sudo mv IntegrationServer  IntSer-pablo
 RUN sudo touch IntegrationServer
+RUN sudo chmod 777 IntegrationServer
 RUN sudo echo -e "export ODBCINI=/opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/odbc.ini \n export ODBCSYSINI=/opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/odbcinst.ini \n IntSer-pablo \$*" >> IntegrationServer
