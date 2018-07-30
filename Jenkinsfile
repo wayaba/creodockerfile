@@ -111,7 +111,7 @@ pipeline {
 		stage('Run Image')
 		{
 			steps{
-				sh 'docker run -e LICENSE=accept -P --name probando ace-mascotas'
+				sh 'docker run -e LICENSE=accept -d -P --name probando3 ace-mascotas'
 				sh 'mqsisetdbparms -w /home/aceuser/ace-server -n SQLLOCAL -u sa -p Password0!'
 			}
 		}
