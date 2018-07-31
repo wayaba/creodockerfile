@@ -99,7 +99,7 @@ pipeline {
 		{
 			steps{
 				//sh "docker build -t ace-mascotas -f ./Dockerfile ."
-				sh "sh "docker build -t ace-mascotas"
+				sh "sh "docker build -t ace-mascotas ."
 				//borro odbc.ini del workspace y del tmp
 				sh "rm /tmp/odbc.ini"
 				sh "rm ${params.workspacesdir}/odbc.ini"
