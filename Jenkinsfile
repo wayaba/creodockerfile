@@ -107,17 +107,15 @@ pipeline {
 				
 			}
 		}
-		
+		/*
 		stage('Run Image')
 		{
 			steps{
 				sh 'docker run -e LICENSE=accept -d -P --name probando3 ace-mascotas'
-				
-				sh '''
-					/opt/ibm/ace-11.0.0.0/server/bin/mqsisetdbparms -w /home/aceuser/ace-server -n SQLLOCAL -u sa -p Password0!
-					'''
+			
 			}
 		}
+		*/
 		/*
 		stage('Deploy')
 			{
