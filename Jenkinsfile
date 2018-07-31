@@ -29,7 +29,7 @@ pipeline {
 	
 	parameters {
         string(name: 'mqsihome', defaultValue: '/opt/ibm/ace-11.0.0.0', description: '')
-		string(name: 'workspacesdir', defaultValue: '/var/jenkins_home/workspace/creodockerfile', description: '')
+		string(name: 'workspacesdir', defaultValue: '/var/jenkins_home/workspace/imagenconbar', description: '')
 		string(name: 'appname', defaultValue: 'ApiMascotas', description: '')
 		choice(name: 'environment', choices: "desa\ntest\nprod", description: 'selecciona el ambiente' )
     }
@@ -52,7 +52,7 @@ pipeline {
 			}
 		}
 		*/
-		/*
+		
 		stage('Compilacion')
 			{
 				agent {
@@ -66,7 +66,7 @@ pipeline {
 					}
 					
 			}
-			*/
+			
 		stage('Load Env Parameters')
 		{
 			steps{
@@ -99,7 +99,7 @@ pipeline {
 		{
 			steps{
 				//sh "docker build -t ace-mascotas -f ./Dockerfile ."
-				sh "docker build ."
+				sh "sh "docker build -t ace-mascotas"
 				//borro odbc.ini del workspace y del tmp
 				sh "rm /tmp/odbc.ini"
 				sh "rm ${params.workspacesdir}/odbc.ini"
