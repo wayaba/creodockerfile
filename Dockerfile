@@ -12,7 +12,7 @@ ENV BAR1=abc.bar
 ENV ODBC=odbc.ini
 
 # Copy in the bar file to a temporary directory
-COPY --chown=aceuser $BAR1 /tmp
+COPY --chown=aceuser $BAR1 /tmp/
 
 # Copy odbc.ini file to a temporary directory
 COPY $ODBC /opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/
