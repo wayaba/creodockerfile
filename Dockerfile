@@ -5,8 +5,8 @@
 # which accompanies this distribution, and is available at
 # http://www.eclipse.org/legal/epl-v20.html
 
-#FROM ppedraza/ace
-FROM ibmcom/ace
+FROM ppedraza/ace
+#FROM ibmcom/ace
 
 ENV BAR1=abc.bar
 ENV ODBC=odbc.ini

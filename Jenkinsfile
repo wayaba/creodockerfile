@@ -98,8 +98,8 @@ pipeline {
 		stage('Build Image')
 		{
 			steps{
-				//sh "docker build -t ace-mascotas -f ./Dockerfile ."
 				sh "docker build -t ace-mascotas ."
+				
 				//borro odbc.ini del workspace y del tmp
 				sh "rm /tmp/odbc.ini"
 				sh "rm ${params.workspacesdir}/odbc.ini"
@@ -110,7 +110,7 @@ pipeline {
 		stage('Run Image')
 		{
 			steps{
-				//sh 'docker run -e LICENSE=accept -d -P --name probando3 ace-mascotas'
+				sh 'docker run -e LICENSE=accept -d -P --name probando3 ace-mascotas'
 			
 			}
 		}
