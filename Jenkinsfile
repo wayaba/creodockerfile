@@ -98,8 +98,8 @@ pipeline {
 		stage('Build Image')
 		{
 			steps{
-				sh "docker build -t ace-mascotas -f ./Dockerfile ."
-
+				//sh "docker build -t ace-mascotas -f ./Dockerfile ."
+				sh "docker build ."
 				//borro odbc.ini del workspace y del tmp
 				sh "rm /tmp/odbc.ini"
 				sh "rm ${params.workspacesdir}/odbc.ini"
