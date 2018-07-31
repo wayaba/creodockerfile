@@ -98,8 +98,7 @@ pipeline {
 		stage('Build Image')
 		{
 			steps{
-				sh "docker build -t ace-mascotas ."
-				//sh "docker tag sarasa:2.0 sarasa:latest"
+				//sh "docker build -t ace-mascotas ."
 
 				//borro odbc.ini del workspace y del tmp
 				sh "rm /tmp/odbc.ini"
@@ -111,7 +110,7 @@ pipeline {
 		stage('Run Image')
 		{
 			steps{
-				sh 'docker run -e LICENSE=accept -d -P --name probando3 ace-mascotas'
+				//sh 'docker run -e LICENSE=accept -d -P --name probando3 ace-mascotas'
 			
 			}
 		}
