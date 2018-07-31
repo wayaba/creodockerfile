@@ -52,7 +52,7 @@ pipeline {
 			}
 		}
 		*/
-		
+		/*
 		stage('Compilacion')
 			{
 				agent {
@@ -66,7 +66,7 @@ pipeline {
 					}
 					
 			}
-			
+			*/
 		stage('Load Env Parameters')
 		{
 			steps{
