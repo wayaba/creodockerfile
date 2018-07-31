@@ -5,16 +5,14 @@
 # which accompanies this distribution, and is available at
 # http://www.eclipse.org/legal/epl-v20.html
 
-FROM ppedraza/ace
+#FROM ppedraza/ace
+FROM ibmcom/ace
 
 ENV BAR1=abc.bar
 ENV ODBC=odbc.ini
 
 # Copy in the bar file to a temporary directory
-
-#COPY --chown=aceuser $BAR1 /tmp
-WORKDIR /tmp
-RUN ls -l
+COPY --chown=aceuser $BAR1 /tmp
 
 # Copy odbc.ini file to a temporary directory
 COPY $ODBC /opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/
@@ -23,4 +21,4 @@ COPY $ODBC /opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/
 RUN bash -c 'mqsicreateworkdir /home/aceuser/ace-server && mqsibar -w /home/aceuser/ace-server -a /tmp/$BAR1 -c'
 
 # Seteo conexion 
-RUN bash -c 'mqsisetdbparms -w /home/aceuser/ace-server -n SQLLOCAL -u sa -p Password0!'
+#RUN bash -c 'mqsisetdbparms -w /home/aceuser/ace-server -n SQLLOCAL -u sa -p Password0!'
