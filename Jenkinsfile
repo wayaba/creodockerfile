@@ -106,7 +106,7 @@ pipeline {
 				
 			}
 		}
-		/*
+		
 		stage('Run Image')
 		{
 			steps{
@@ -114,7 +114,7 @@ pipeline {
 			
 			}
 		}
-		*/
+		
 		/*
 		stage('Deploy')
 			{
