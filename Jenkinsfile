@@ -98,7 +98,7 @@ pipeline {
 		stage('Build Image')
 		{
 			steps{
-				sh "docker build -t ace-mascotas ."
+				sh "docker build -t ace-mascotas --build-arg dbname=SQLLOCAL --build-arg dbuser=sa --build-arg dbpass=Password0! ."
 				
 				//borro odbc.ini del workspace y del tmp
 				sh "rm /tmp/odbc.ini"

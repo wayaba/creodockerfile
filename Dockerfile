@@ -11,6 +11,10 @@ FROM ppedraza/ace
 ENV BAR1=abc.bar
 ENV ODBC=odbc.ini
 
+ARG dbname
+ARG dbuser
+ARG dbpass
+
 # Copy in the bar file to a temporary directory
 COPY --chown=aceuser $BAR1 /tmp
 
@@ -21,4 +25,4 @@ COPY $ODBC /opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/
 RUN bash -c 'mqsicreateworkdir /home/aceuser/ace-server && mqsibar -w /home/aceuser/ace-server -a /tmp/$BAR1 -c'
 
 # Seteo conexion 
-RUN bash -c 'mqsisetdbparms -w /home/aceuser/ace-server -n SQLLOCAL -u sa -p Password0!'
+RUN bash -c 'mqsisetdbparms -w /home/aceuser/ace-server -n $dbname -u $dbuser -p $dbpass'
