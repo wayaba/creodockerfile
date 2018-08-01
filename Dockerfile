@@ -21,4 +21,4 @@ COPY $ODBC /opt/ibm/ace-11.0.0.0/server/ODBC/unixodbc/
 RUN bash -c 'mqsicreateworkdir /home/aceuser/ace-server && mqsibar -w /home/aceuser/ace-server -a /tmp/$BAR1 -c'
 
 # Seteo conexion 
-#RUN bash -c 'mqsisetdbparms -w /home/aceuser/ace-server -n SQLLOCAL -u sa -p Password0!'
+RUN bash -c 'mqsisetdbparms -w /home/aceuser/ace-server -n SQLLOCAL -u sa -p Password0!'
