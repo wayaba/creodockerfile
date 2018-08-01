@@ -12,10 +12,7 @@ def loadProperties(String env='tuvieja') {
         checkout scm
 		echo "Archivo leido ${env}.properties"
 		def envFile = "${env}.properties"
-        //properties = readProperties file: '${env}.properties'
 		properties = readProperties file: envFile
-        echo "valor url:  ${properties.url}"
-		echo "valor puerto: ${properties.puerto}"
     }
 }
 
@@ -98,7 +95,7 @@ pipeline {
 		stage('Build Image')
 		{
 			steps{
-				sh "docker build -t ace-mascotas --build-arg dbname=SQLLOCAL --build-arg dbuser=sa --build-arg dbpass=Password0! ."
+				sh "docker build -t ace-mascotas --build-arg dbname=${properties.'SQLLOCAL.dbname'} --build-arg dbuser=${properties.'SQLLOCAL.dbuser'} --build-arg dbpass=${properties.'SQLLOCAL.dbpass'} ."
 				
 				//borro odbc.ini del workspace y del tmp
 				sh "rm /tmp/odbc.ini"
