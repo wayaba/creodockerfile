@@ -28,6 +28,7 @@ pipeline {
         string(name: 'mqsihome', defaultValue: '/opt/ibm/ace-11.0.0.0', description: '')
 		string(name: 'workspacesdir', defaultValue: '/var/jenkins_home/workspace/imagenconbar', description: '')
 		string(name: 'appname', defaultValue: 'ApiMascotas', description: '')
+		string(name: 'version', defaultValue: '9999', description: '1.0')
 		choice(name: 'environment', choices: "desa\ntest\nprod", description: 'selecciona el ambiente' )
     }
 
@@ -105,17 +106,6 @@ pipeline {
 		{
 			steps{
 				sh "docker run -e LICENSE=accept -d -p ${properties.'API.manageport'}:7600 -p ${properties.'API.port'}:7800 -P --name probando3 ace-mascotas"
-				
-				script{
-					// Git committer email
-					GIT_COMMIT_EMAIL = sh (
-						script: 'docker ps -aqf "name=probando3"',
-						returnStdout: true
-					).trim()
-					echo "Git committer email: ${GIT_COMMIT_EMAIL}"
-				}
-				
-				
 			}
 		}
 		
@@ -134,20 +124,33 @@ pipeline {
 			
 				
 			}
-			
-		stage('Stop and remove Instance')
+		*/	
+		stage('Tag image')
 			{
-			
 				steps{
+				
+					script{
+						CONTAINER_ID = sh (
+							script: 'docker ps -aqf "name=probando3"',
+							returnStdout: true
+						).trim()
+						echo "El id del container es: ${CONTAINER_ID}"
+						sh 'docker commit ${CONTAINER_ID} elrepo/ace-mascotas:${params.version}'
+					}
+					
+
 						echo 'Stoppeo la instancia'
 						sh 'docker stop probando3'
 						echo 'Stoppeo la instancia'
 						sh 'docker rm probando3'
+						
+						//Borro imagenes con <none> en tag
+						sh "docker rmi $(docker images --format '{{.ID}}' --filter=dangling=true)"
 					}
 			
 				
 			}
-			*/
+			
 			
 	}
 }
