@@ -104,7 +104,7 @@ pipeline {
 		stage('Run Image')
 		{
 			steps{
-				sh "docker run -e -rm LICENSE=accept -d -p ${properties.'API.manageport'}:7600 -p ${properties.'API.port'}:7800 -P --name probando3 ace-mascotas"
+				sh "docker run -e LICENSE=accept -d -rm -p ${properties.'API.manageport'}:7600 -p ${properties.'API.port'}:7800 -P --name probando3 ace-mascotas"
 			
 			}
 		}
