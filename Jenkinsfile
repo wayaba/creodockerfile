@@ -48,21 +48,19 @@ pipeline {
 				}
 			}
 		}
-		*/
-		
 		stage('Compilacion')
-			{
-				agent {
-					docker { image 'ibmcom/ace:latest' 
-							args '-e LICENSE=accept'
-					}
+		{
+			agent {
+				docker { image 'ibmcom/ace:latest' 
+						args '-e LICENSE=accept'
 				}
-				steps{
-						echo "EJECUTO ${params.mqsihome}/server/bin/mqsipackagebar -w ${params.workspacesdir} -a ${params.workspacesdir}/abc.bar -k ${params.appname}"
-						sh "${params.mqsihome}/server/bin/mqsipackagebar -w ${params.workspacesdir} -a ${params.workspacesdir}/abc.bar -k ${params.appname}"
-					}
-					
 			}
+			steps{
+					echo "EJECUTO ${params.mqsihome}/server/bin/mqsipackagebar -w ${params.workspacesdir} -a ${params.workspacesdir}/abc.bar -k ${params.appname}"
+					sh "${params.mqsihome}/server/bin/mqsipackagebar -w ${params.workspacesdir} -a ${params.workspacesdir}/abc.bar -k ${params.appname}"
+				}
+					
+		}
 			
 		stage('Load Env Parameters')
 		{
@@ -75,10 +73,6 @@ pipeline {
 		stage('Replaces')
 			{
 				steps{
-						//sh "docker build -t sarasa . -ARGS puerto=$properties.puerto url=$"
-						//sh "docker build -t sarasa ."
-						//sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini"
-						
 						echo "Realizo replace en odbc.ini"
 						
 						sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | \
@@ -112,21 +106,7 @@ pipeline {
 			}
 		}
 		
-		/*
-		stage('Deploy')
-			{
-				agent {
-					docker { image 'ibmcom/iib:latest' 
-							args '-u 0:0 -e LICENSE=accept -e NODENAME=DesaDocker1 -e SERVERNAME=MiSERVER1'
-					}
-				}
-				steps{
-						echo "EJECUTO ${params.mqsihome}/server/bin/mqsideploy -i http://192.168.99.100 -p 4415 -a ${params.barname} -e ungrupo"
-						sh "${params.mqsihome}/server/bin/mqsideploy -i 192.168.99.100 -p 4415 -a ${params.barname} -e ungrupo"
-					}
-					
-			}
-
+		*/
 		stage('Test')
 			{
 			
@@ -139,19 +119,5 @@ pipeline {
 				
 			}
 			
-			
-		stage('Pruebo parametros de ambiente')
-			{
-			
-				steps {
-					script {
-						loadProperties(params.environment)
-						echo "Later one ${properties.puerto}"
-						}
-				}
-			
-				
-			}
-		*/	
 	}
 }
