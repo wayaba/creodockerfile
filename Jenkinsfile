@@ -151,7 +151,7 @@ pipeline {
 						
 						
 						//Borro imagenes con <none> en tag
-						sh 'docker rmi $NONE_IMAGES'
+						sh "docker rmi $NONE_IMAGES"
 					}
 					
 
