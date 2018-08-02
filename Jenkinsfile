@@ -151,8 +151,8 @@ pipeline {
 						//Borro imagenes con <none> en tag
 						sh "docker rmi ${NONE_IMAGES}"
 			*/			
-						sh "docker rmi \\\$(docker images --format '{{.ID}}' --filter=dangling=true)"
-						
+						//sh "docker rmi \\\$(docker images --format '{{.ID}}' --filter=dangling=true)"
+						sh (script: 'docker rmi $(docker images --format "{{.ID}}" --filter=dangling=true)')
 						
 					}
 					
