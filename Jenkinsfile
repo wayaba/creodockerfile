@@ -109,7 +109,7 @@ pipeline {
 			}
 		}
 		
-		
+		/*
 		stage('Test')
 			{
 			
@@ -122,7 +122,7 @@ pipeline {
 			
 				
 			}
-			
+			*/
 			
 	}
 }
