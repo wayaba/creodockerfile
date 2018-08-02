@@ -105,9 +105,14 @@ pipeline {
 		{
 			steps{
 				sh "docker run -e LICENSE=accept -d -p ${properties.'API.manageport'}:7600 -p ${properties.'API.port'}:7800 -P --name probando3 ace-mascotas"
-			
+				
+				def ret = sh(script: 'docker ps -aqf "name=probando3"', returnStdout: true)
+				
+				echo "$ret";
 			}
 		}
+		
+		
 		
 		/*
 		stage('Test')
