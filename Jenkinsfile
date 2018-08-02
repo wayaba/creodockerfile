@@ -155,8 +155,8 @@ pipeline {
 						echo 'Stoppeo la instancia'
 						sh 'docker rm probando3'
 		
-						//Borro imagenes con <none> en tag
-						sh (script: 'docker rmi $(docker images --format "{{.ID}}" --filter=dangling=true)')
+						//Borro la imagen
+						sh (script: 'docker rmi ace-mascotas')
 					}	
 				}
 			}
