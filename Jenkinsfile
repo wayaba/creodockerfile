@@ -142,8 +142,14 @@ pipeline {
 						echo 'Stoppeo la instancia'
 						sh 'docker rm probando3'
 						
+						NONE_IMAGES = sh (
+							script: 'docker images --format "{{.ID}}" --filter=dangling=true',
+							returnStdout: true
+						).trim()
+						
+						
 						//Borro imagenes con <none> en tag
-						sh "docker rmi $(docker images --format '{{.ID}}' --filter=dangling=true)"
+						sh 'docker rmi ${NONE_IMAGES}'
 					}
 					
 
