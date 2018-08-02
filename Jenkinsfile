@@ -32,7 +32,7 @@ pipeline {
     }
 
 	stages {
-	
+/*	
 		stage('SonarQube analysis') {
 			steps {
 				script {
@@ -48,7 +48,7 @@ pipeline {
 				}
 			}
 		}
-		
+*/		
 		
 		stage('Compilacion')
 		{
