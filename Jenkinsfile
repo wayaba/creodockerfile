@@ -136,7 +136,7 @@ pipeline {
 						).trim()
 						echo "El id del container es: ${CONTAINER_ID}"
 						VERSION = params.version
-						sh 'docker commit ${CONTAINER_ID} elrepo/ace-mascotas:${VERSION}'
+						sh 'docker commit $CONTAINER_ID elrepo/ace-mascotas:$VERSION'
 						
 						echo 'Stoppeo la instancia'
 						sh 'docker stop probando3'
@@ -150,7 +150,7 @@ pipeline {
 						
 						
 						//Borro imagenes con <none> en tag
-						sh 'docker rmi ${NONE_IMAGES}'
+						sh 'docker rmi $NONE_IMAGES'
 					}
 					
 
