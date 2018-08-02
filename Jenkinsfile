@@ -64,7 +64,7 @@ pipeline {
 				}
 					
 		}
-			
+			/*
 		stage('Load Env Parameters')
 		{
 			steps{
@@ -73,8 +73,16 @@ pipeline {
 				}
 			}
 		}
-		stage('Replaces')
+		*/
+		//stage('Replaces')
+		stage('Build Image')
 			{
+				steps{
+					script{
+						loadProperties(params.environment)
+					}
+				}
+			
 				steps{
 						echo "Realizo replace en odbc.ini"
 						
@@ -87,9 +95,18 @@ pipeline {
 						
 						sh "cp /tmp/odbc.ini ${params.workspacesdir}"
 					}
+				
+				steps{
+					sh "docker build -t ace-mascotas --build-arg dbname=${properties.'SQLLOCAL.dbname'} --build-arg dbuser=${properties.'SQLLOCAL.dbuser'} --build-arg dbpass=${properties.'SQLLOCAL.dbpass'} ."
+					
+					//borro odbc.ini del workspace y del tmp
+					sh "rm /tmp/odbc.ini"
+					sh "rm ${params.workspacesdir}/odbc.ini"
+				
+				}
 					
 			}
-			
+			/*
 		stage('Build Image')
 		{
 			steps{
@@ -101,7 +118,7 @@ pipeline {
 				
 			}
 		}
-		
+		*/
 		stage('Run Image')
 		{
 			steps{
