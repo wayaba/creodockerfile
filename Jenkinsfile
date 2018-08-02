@@ -32,7 +32,7 @@ pipeline {
     }
 
 	stages {
-	/*
+	
 		stage('SonarQube analysis') {
 			steps {
 				script {
@@ -48,6 +48,8 @@ pipeline {
 				}
 			}
 		}
+		
+		
 		stage('Compilacion')
 		{
 			agent {
@@ -86,6 +88,7 @@ pipeline {
 					}
 					
 			}
+			
 		stage('Build Image')
 		{
 			steps{
@@ -106,7 +109,7 @@ pipeline {
 			}
 		}
 		
-		*/
+		
 		stage('Test')
 			{
 			
@@ -119,6 +122,7 @@ pipeline {
 			
 				
 			}
+			
 			
 	}
 }
