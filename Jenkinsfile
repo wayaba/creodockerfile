@@ -135,7 +135,8 @@ pipeline {
 							returnStdout: true
 						).trim()
 						echo "El id del container es: ${CONTAINER_ID}"
-						sh 'docker commit ${CONTAINER_ID} elrepo/ace-mascotas:${params.version}'
+						VERSION = params.version
+						sh 'docker commit ${CONTAINER_ID} elrepo/ace-mascotas:${VERSION}'
 						
 						echo 'Stoppeo la instancia'
 						sh 'docker stop probando3'
