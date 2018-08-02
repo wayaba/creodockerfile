@@ -136,9 +136,7 @@ pipeline {
 						).trim()
 						echo "El id del container es: ${CONTAINER_ID}"
 						sh 'docker commit ${CONTAINER_ID} elrepo/ace-mascotas:${params.version}'
-					}
-					
-
+						
 						echo 'Stoppeo la instancia'
 						sh 'docker stop probando3'
 						echo 'Stoppeo la instancia'
@@ -146,6 +144,10 @@ pipeline {
 						
 						//Borro imagenes con <none> en tag
 						sh "docker rmi $(docker images --format '{{.ID}}' --filter=dangling=true)"
+					}
+					
+
+						
 					}
 			
 				
