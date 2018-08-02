@@ -78,33 +78,29 @@ pipeline {
 		stage('Build Image')
 			{
 				steps{
+					echo "Cargo propiedades"
 					script{
 						loadProperties(params.environment)
 					}
-				}
-			
-				steps{
-						echo "Realizo replace en odbc.ini"
+					
+					echo "Realizo replace en odbc.ini"
 						
-						sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | \
-							sed -e 's,#SQLLOCAL.port#,${properties.'SQLLOCAL.port'},' \
-								-e 's,#SQLLOCAL.database#,${properties.'SQLLOCAL.database'},' \
-								-e 's,#SQLLOCAL.hostname#,${properties.'SQLLOCAL.hostname'},' \
-								-e 's,#SQLLOCAL.installdir#,${params.mqsihome},' \
-							> /tmp/odbc.ini"
-						
-						sh "cp /tmp/odbc.ini ${params.workspacesdir}"
-					}
-				
-				steps{
+					sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | \
+						sed -e 's,#SQLLOCAL.port#,${properties.'SQLLOCAL.port'},' \
+							-e 's,#SQLLOCAL.database#,${properties.'SQLLOCAL.database'},' \
+							-e 's,#SQLLOCAL.hostname#,${properties.'SQLLOCAL.hostname'},' \
+							-e 's,#SQLLOCAL.installdir#,${params.mqsihome},' \
+						> /tmp/odbc.ini"
+					
+					sh "cp /tmp/odbc.ini ${params.workspacesdir}"
+					
+					echo "Hago el build"
 					sh "docker build -t ace-mascotas --build-arg dbname=${properties.'SQLLOCAL.dbname'} --build-arg dbuser=${properties.'SQLLOCAL.dbuser'} --build-arg dbpass=${properties.'SQLLOCAL.dbpass'} ."
 					
 					//borro odbc.ini del workspace y del tmp
 					sh "rm /tmp/odbc.ini"
 					sh "rm ${params.workspacesdir}/odbc.ini"
-				
 				}
-					
 			}
 			/*
 		stage('Build Image')
