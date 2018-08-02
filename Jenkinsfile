@@ -104,7 +104,7 @@ pipeline {
 		stage('Run Image')
 		{
 			steps{
-				sh "docker run -rm -e LICENSE=accept -d -p ${properties.'API.manageport'}:7600 -p ${properties.'API.port'}:7800 -P --name probando3 ace-mascotas"
+				sh "docker run -e LICENSE=accept -d -p ${properties.'API.manageport'}:7600 -p ${properties.'API.port'}:7800 -P --name probando3 ace-mascotas"
 			
 			}
 		}
@@ -118,6 +118,19 @@ pipeline {
 						//sh 'gradle clean test'
 						sh 'gradle resolveProperties'
 						
+					}
+			
+				
+			}
+			
+		stage('Stop and remove Instance')
+			{
+			
+				steps{
+						echo 'Stoppeo la instancia'
+						sh 'docker stop probando3'
+						echo 'Stoppeo la instancia'
+						sh 'docker rm probando3'
 					}
 			
 				
