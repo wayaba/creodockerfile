@@ -152,9 +152,35 @@ steps {
 }
 ```
 
+### Stage Compilacion :package:
+En este stage con el codigo bajado de Git, se genera para el BAR a deployar
+
+Se ejecuta la llamada a la imagen de broker oficial v11 (ibmcom/ace:latest) 
+Para armar el entorno de ejecucion y poder correr el comando mqsipackagebar 
+A este comando se le pasan los siguientes parametros
+
+-w : ruta del workspace de trabajo (parametro desde Jenkins)
+-a : nombre del bar (el nombre es lo de menos, lo importante es la ruta donde se va a crear. En este caso en el workspace)
+-k : el nombre de la aplicacion a compilar dentro del workspace
+
+Ejemplo
 ```
-until finished
+stage('Compilacion')
+		{
+			agent {
+				docker { image 'ibmcom/ace:latest' 
+						args '-e LICENSE=accept'
+				}
+			}
+			steps{
+					sh "${params.mqsihome}/server/bin/mqsipackagebar -w ${params.workspacesdir} -a ${params.workspacesdir}/abc.bar -k ${params.appname}"
+				}
+					
+		}
 ```
+NOTA: Una vez que termina el stage compilacion, el entorno generado con la llamada al docker de ibm, se cierra.
+
+### Stage Build Image :package:
 
 End with an example of getting some data out of the system or using it for a little demo
 
