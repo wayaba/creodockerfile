@@ -26,7 +26,7 @@ Una vez que sonarqube este running, pegar el jar [(esql-plugin-2.3.3.jar)](https
 ```
 docker cp "C:\tmp\esql-plugin-2.3.3.jar" sonarqube:/opt/sonarqube/extensions/plugins
 ```
-### Pasos
+### Pasos :feet:
 
 #### Configuracion de Sonarqube
 En SonarQube crear un nuevo proyecto
@@ -56,6 +56,29 @@ Token generado: 31ee76df78c1475c4b347aa0db46498a987c28ed
 #### Configuracion Sonarqube en Jenkins
 
 * En Jenkins instalar el plugin "SonarQube Scanner"
+
+Dentro de Manage Jenkins->Global Tool Configuration
+En la seccion SonarQube Scanner agregar un SonarQube Scanner presionando el boton de Add
+Ingresar (por ejemplo)
+```
+Name : sonnar-jenkins
+- [x] Install automatically
+```
+y guardar los cambios :heavy_check_mark:
+
+Luego dentro de Manage Jenkins->Configure System agregar el vinculo al servidor de sonarQube previamente instalado.
+En la seccion SonarQube servers agregar los datos del servidor (por ejemplo)
+- Environment variables
+```
+- [x]  Enable injection of SonarQube server configuration as build environment variables
+```
+- SonarQube installations
+```
+ Name : sonarqube
+ Server URL : http://192.168.99.100:9000
+ Server authentication token : 31ee76df78c1475c4b347aa0db46498a987c28ed (el token generado anteriormente en el server de sonar)
+```
+y guardar los cambios :heavy_check_mark:
 
 A step by step series of examples that tell you how to get a development env running
 
