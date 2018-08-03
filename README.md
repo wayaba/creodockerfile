@@ -104,11 +104,53 @@ Lightweight checkout: checked
 ```
 y guardar los cambios :heavy_check_mark:
 
+## Codificacion de Jenkinsfile con pipeline
+
+En el pipeline se definen los stages que indican los pasos a seguir en la integracion. Si falla uno, da FAILURE y no se continua con los siguientes.
+
+### Parametros
+Se escribe al comienzo del pipeline y especifica los parametros de entrada para la llamada desde jenkins
+Los valores por defecto deberian cambiar con cada proyecto
+
+Ejemplo:
 ```
-Give the example
+parameters {	
+	string(name: 'mqsihome', defaultValue: '/opt/ibm/ace-11.0.0.0', description: '')
+	string(name: 'workspacesdir', defaultValue: '/var/jenkins_home/workspace/imagenconbar', description: '')
+	string(name: 'appname', defaultValue: 'ApiMascotas', description: '')
+	string(name: 'version', defaultValue: '9999', description: '1.0')
+	choice(name: 'environment', choices: "desa\ntest\nprod", description: 'selecciona el ambiente' )
+	}
 ```
 
-And repeat
+### Stage SonarQube :satellite:
+Dentro de este stage se configura la vinculacion del proyecto de sonar con el server configurado en jenkins
+
+De esta forma los valores del ejemplo corresponden a:
+
+ - sonnar-jenkins : Nombre del sonar scanner configurado dentro de Jenkins en Manage Jenkins->Global Tool Configuration
+ - sonarqube : Nombre del servidor de Sonar configurado dentro de Jenkins en Manage Jenkins->Configure System
+ - Dsonar.projectKey=projSonarDoc : Key creado dentro del proyecto en el servidor de SonarQube (Configuracion de Sonarqube)
+ - Dsonar.projectname=projSonarDoc : Key creado dentro del proyecto en el servidor de SonarQube (Configuracion de Sonarqube)
+ - Dsonar.sources=. \ : Indica la ruta dentro del proyecto los archivos a escanear
+ - Dsonar.language=esql : el lenguaje que se quiere validar. En este caso ESQL (esql-plugin-2.3.3.jar)
+
+Ejemplo:
+```
+steps {	
+	script {
+		def scannerHome = tool 'sonnar-jenkins'
+		withSonarQubeEnv('sonarqube') {
+			sh "${scannerHome}/bin/sonar-scanner \
+			-Dsonar.projectKey=esqpipeline \
+			-Dsonar.projectname=Esqpipeline \
+			-Dsonar.projectVersion=1 \
+			-Dsonar.sources=. \
+			-Dsonar.language=esql"
+		}
+	}
+}
+```
 
 ```
 until finished
