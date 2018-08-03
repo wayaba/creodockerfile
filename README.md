@@ -3,7 +3,7 @@
 
  - Integración continua manjeada con pipeline de Jenkins.
 
-### Prerrequisitos
+## Prerrequisitos
 
 * Jenkins debe tener instalado docker.
   - Para el ejemplo se usa la imagen modificada de jenkins oficial: 
@@ -26,9 +26,9 @@ Una vez que sonarqube este running, pegar el jar [(esql-plugin-2.3.3.jar)](https
 ```
 docker cp "C:\tmp\esql-plugin-2.3.3.jar" sonarqube:/opt/sonarqube/extensions/plugins
 ```
-### Pasos :feet:
+## Pasos :feet:
 
-#### Configuracion de Sonarqube
+## Configuracion de Sonarqube
 En SonarQube crear un nuevo proyecto
 Administration->Projects->Management->Create Project
 
@@ -53,7 +53,7 @@ En Generate Tokens ingresar la key del proyeto creado anteriormente "projSonarDo
 ```
 Token generado: 31ee76df78c1475c4b347aa0db46498a987c28ed
 ```
-#### Configuracion Sonarqube en Jenkins
+## Configuracion Sonarqube en Jenkins
 
 * En Jenkins instalar el plugin "SonarQube Scanner"
 
@@ -80,9 +80,29 @@ En la seccion SonarQube servers agregar los datos del servidor (por ejemplo)
 ```
 y guardar los cambios :heavy_check_mark:
 
-A step by step series of examples that tell you how to get a development env running
+## Generacion nuevo item en Jenkins
 
-Say what the s
+En Jenkins->New Item
+Ingresar Nombre del nuevo item y seleccionar el tipo Pipeline
+
+La idea es que el codigo del pipeline este escrito dentro del codigo descargado de git en cada proyecto
+
+Una vez creado el nuevo item, bajar hasta la seccion Pipeline y seleccionar lo siguiente:
+
+```
+Definition : Pipeline script from SCM
+SCM : Git
+
+Repositories
+	Repository URL : https://github.com/repo/proyecto.git
+	Credentials : (cargar las credenciales de git cargadas en Jenkins)
+Branches to build
+	Branch Specifier (blank for 'any') : */master 
+Repository browser: (Auto)
+Script Path : Jenkinsfile (el nombre del archivo con el pipeline en el root del proyecto)
+Lightweight checkout: checked
+```
+y guardar los cambios :heavy_check_mark:
 
 ```
 Give the example
