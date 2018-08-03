@@ -11,6 +11,7 @@
 
 ```
 docker pull ppedraza/jenkins
+docker run --name jenkins -p 8080:8080 -p 50000:50000 -P ppedraza/jenkins
 ```
 
 * Servidor de SonarQube instalado con plugin de ESQL (es un jar).
@@ -21,11 +22,40 @@ docker pull sonarqube
 docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube
 ```
 
-Una vez que sonarqube este running, pegar el jar (esql-plugin-2.3.3.jar) en la carpeta plugins
+Una vez que sonarqube este running, pegar el jar [(esql-plugin-2.3.3.jar)](https://github.com/EXXETA/sonar-esql-plugin/releases/download/2.3.3/esql-plugin-2.3.3.jar) en la carpeta plugins
 ```
 docker cp "C:\tmp\esql-plugin-2.3.3.jar" sonarqube:/opt/sonarqube/extensions/plugins
 ```
 ### Pasos
+
+#### Configuracion de Sonarqube
+En SonarQube crear un nuevo proyecto
+Administration->Projects->Management->Create Project
+
+Ingresar Datos para la creacion (Ejemplo)
+```
+ Name : projSonarDoc
+ Key  : projSonarDoc
+ Visibility: Public
+```
+Por otro lado dentro de SonarQube crear un nuevo usuario con token
+Administration->Security->Users->Create User
+
+Ingresar Datos para la creacion (Ejemplo)
+```
+ Login: Userjenkins
+ Name: Userjenkins
+ Pass: Userjenkins
+```
+Luego de crearlo ir a "Update Tokens" dentro del usuario
+
+En Generate Tokens ingresar la key del proyeto creado anteriormente "projSonarDoc" y generar
+```
+Token generado: 31ee76df78c1475c4b347aa0db46498a987c28ed
+```
+#### Configuracion Sonarqube en Jenkins
+
+* En Jenkins instalar el plugin "SonarQube Scanner"
 
 A step by step series of examples that tell you how to get a development env running
 
