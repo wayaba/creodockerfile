@@ -1,20 +1,31 @@
 # Integración Continua con Jenkins
+[![][ButlerImage]][website]
 
-[![][ButlerImage]][website] 
-Integración continua manjeada con pipeline de Jenkins.
+ - Integración continua manjeada con pipeline de Jenkins.
 
 ### Prerrequisitos
 
-Jenkins debe tener instalado docker.
-Para el ejemplo se usa la imagen modificada de jenkins oficial: 
-* [ppedraza/jenkins](https://hub.docker.com/r/ppedraza/jenkins/)
+* Jenkins debe tener instalado docker.
+  - Para el ejemplo se usa la imagen modificada de jenkins oficial: 
+    [ppedraza/jenkins](https://hub.docker.com/r/ppedraza/jenkins/)
 
 ```
 docker pull ppedraza/jenkins
 ```
 
+* Servidor de SonarQube instalado con plugin de ESQL (es un jar).
+  - El server lo obtengo de una image de docker 
+   [sonarqube](https://hub.docker.com/_/sonarqube/)
+```
+docker pull sonarqube
+docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube
+```
 
-### Installing
+Una vez que sonarqube este running, pegar el jar (esql-plugin-2.3.3.jar) en la carpeta plugins
+```
+docker cp "C:\tmp\esql-plugin-2.3.3.jar" sonarqube:/opt/sonarqube/extensions/plugins
+```
+### Pasos
 
 A step by step series of examples that tell you how to get a development env running
 
