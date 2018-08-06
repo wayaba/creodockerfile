@@ -250,7 +250,7 @@ def loadProperties(String env='desa') {
 
 Dentro del pipeline para la carga de la variable properties, lo que se debe hacer es la llamada de la funcion dentro de un step.
 
-```
+```ruby
 steps{
 	echo "Cargo propiedades"
 	script{
@@ -284,13 +284,13 @@ HostName=#SQLLOCAL.hostname#
 PortNumber=#SQLLOCAL.port#
 ```
 
-donde #SQLLOCAL.database# es el string a reemplazar por el valor de la misma variable en el archivo desa.properties
+> donde #SQLLOCAL.database# es el string a reemplazar por el valor de la misma variable en el archivo desa.properties
 
 ```
 SQLLOCAL.database=master
 ```
 
-Un ejemplo de los replace a realizar es el siguiente:
+> Una manera de realizar los reemplazos en el pipeline es la siguiente:
 
 ```
 echo "Realizo replace en odbc.ini"
@@ -302,6 +302,7 @@ sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | \
 	> /tmp/odbc.ini"				
 sh "cp /tmp/odbc.ini ${params.workspacesdir}"
 ```
+
 
 [ButlerImage]: https://jenkins.io/sites/default/files/jenkins_logo.png
 [website]: https://jenkins.io/
