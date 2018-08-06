@@ -84,7 +84,7 @@ Dentro de Manage Jenkins->Configure System, en la seccion SonarQube servers agre
 ```
 y guardar los cambios :heavy_check_mark:
 
-## Generacion nuevo item en Jenkins
+## Generación nuevo item en Jenkins
 
 En Jenkins->New Item
 Ingresar Nombre del nuevo item y seleccionar el tipo Pipeline
