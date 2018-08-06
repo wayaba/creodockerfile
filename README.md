@@ -130,10 +130,10 @@ De esta forma los valores del ejemplo corresponden a:
 
  - sonnar-jenkins : Nombre del sonar scanner configurado dentro de Jenkins en Manage Jenkins->Global Tool Configuration
  - sonarqube : Nombre del servidor de Sonar configurado dentro de Jenkins en Manage Jenkins->Configure System
- - Dsonar.projectKey=projSonarDoc : Key creado dentro del proyecto en el servidor de SonarQube (Configuracion de Sonarqube)
- - Dsonar.projectname=projSonarDoc : Key creado dentro del proyecto en el servidor de SonarQube (Configuracion de Sonarqube)
- - Dsonar.sources=. \ : Indica la ruta dentro del proyecto los archivos a escanear
- - Dsonar.language=esql : el lenguaje que se quiere validar. En este caso ESQL (esql-plugin-2.3.3.jar)
+ - Dsonar.projectKey : Key creado dentro del proyecto en el servidor de SonarQube (Configuracion de Sonarqube)
+ - Dsonar.projectname : Key creado dentro del proyecto en el servidor de SonarQube (Configuracion de Sonarqube)
+ - Dsonar.sources : Indica la ruta dentro del proyecto los archivos a escanear
+ - Dsonar.language : el lenguaje que se quiere validar. En este caso ESQL (esql-plugin-2.3.3.jar)
 
 Ejemplo:
 ```
@@ -142,8 +142,8 @@ steps {
 		def scannerHome = tool 'sonnar-jenkins'
 		withSonarQubeEnv('sonarqube') {
 			sh "${scannerHome}/bin/sonar-scanner \
-			-Dsonar.projectKey=esqpipeline \
-			-Dsonar.projectname=Esqpipeline \
+			-Dsonar.projectKey=projSonarDoc \
+			-Dsonar.projectname=ProjSonarDoc \
 			-Dsonar.projectVersion=1 \
 			-Dsonar.sources=. \
 			-Dsonar.language=esql"
@@ -152,7 +152,7 @@ steps {
 }
 ```
 
-### Stage Compilacion :package:
+### Stage Compilacion :truck:
 En este stage con el codigo bajado de Git, se genera para el BAR a deployar
 
 Se ejecuta la llamada a la imagen de broker oficial v11 (ibmcom/ace:latest) 
