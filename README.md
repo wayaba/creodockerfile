@@ -156,13 +156,13 @@ steps {
 ### Stage Compilacion :truck:
 En este stage con el codigo bajado de Git, se genera para el BAR a deployar
 
-Se ejecuta la llamada a la imagen de broker oficial v11 (ibmcom/ace:latest) 
-Para armar el entorno de ejecucion y poder correr el comando mqsipackagebar 
+Se ejecuta la llamada a la imagen de broker oficial v11 [ibmcom/ace](https://hub.docker.com/r/ibmcom/ace/)
+Para armar el entorno de ejecucion y poder correr el comando [mqsipackagebar](https://www.ibm.com/support/knowledgecenter/en/SSTTDS_11.0.0/com.ibm.etools.mft.doc/bc31720_.htm)
 A este comando se le pasan los siguientes parametros
 
--w : ruta del workspace de trabajo (parametro desde Jenkins)
--a : nombre del bar (el nombre es lo de menos, lo importante es la ruta donde se va a crear. En este caso en el workspace)
--k : el nombre de la aplicacion a compilar dentro del workspace
+- -w : ruta del workspace de trabajo (parametro desde Jenkins)
+- -a : nombre del bar (el nombre es lo de menos, lo importante es la ruta donde se va a crear. En este caso en el workspace)
+- -k : el nombre de la aplicacion a compilar dentro del workspace
 
 Ejemplo
 ```
