@@ -108,7 +108,7 @@ Lightweight checkout: checked
 ```
 y guardar los cambios :heavy_check_mark:
 
-## Codificacion de Jenkinsfile con pipeline
+## Codificación de Jenkinsfile con pipeline
 
 En el pipeline se definen los stages que indican los pasos a seguir en la integración. Si falla uno, da FAILURE y no se continua con los siguientes.
 
