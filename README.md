@@ -156,7 +156,7 @@ steps {
 }
 ```
 
-### Stage Compilacion :truck:
+### Stage Compilacion :package:
 En este stage con el codigo bajado de Git, se genera para el BAR a deployar
 
 Se ejecuta la llamada a la imagen de broker oficial v11 [ibmcom/ace](https://hub.docker.com/r/ibmcom/ace/)
@@ -170,21 +170,60 @@ A este comando se le pasan los siguientes parametros
 Ejemplo
 ```
 stage('Compilacion')
-		{
-			agent {
-				docker { image 'ibmcom/ace:latest' 
-						args '-e LICENSE=accept'
-				}
+{
+	agent {
+		docker { image 'ibmcom/ace:latest' 
+			args '-e LICENSE=accept'
 			}
-			steps{
-					sh "${params.mqsihome}/server/bin/mqsipackagebar -w ${params.workspacesdir} -a ${params.workspacesdir}/abc.bar -k ${params.appname}"
-				}
-					
 		}
+	steps{
+		sh "${params.mqsihome}/server/bin/mqsipackagebar -w ${params.workspacesdir} -a ${params.workspacesdir}/abc.bar -k ${params.appname}"
+		}
+					
+}
 ```
-NOTA: Una vez que termina el stage compilacion, el entorno generado con la llamada al docker de ibm, se cierra.
+NOTA: Una vez que termina el stage compilacion, el entorno generado con la llamada al docker de ibm se cierra.
 
-### Stage Build Image :package:
+### Stage Build Image :art:
+
+Lo primero que se debe hacer en este step es la carga de las variables de entorno, para que a la hora de armar la imagen, quede la misma con la configuracion que corresponda al ambiente donde se requiere utilizarla.
+
+Para esto deben existir archivos de propiedades por ambiente.
+Los mismos estan actualmente situados en el root del proyecto
+Ej.
+
+- desa.properties
+- test.properties
+- prod.properties
+
+```
+|-- ProjectName
+    |-- desa.properties
+    |-- test.properties
+    |-- prod.properties
+    |-- README.md
+    |-- Dockerfile
+    |-- Jenkinsfile
+    |-- build.gradle
+    |-- App
+        |-- swagger.json
+        |-- restapi.descriptor
+```
+
+El formato dentro de cada archivo para alojar las variables es el de nombre = valor
+Ej.
+
+```
+#configuracion servicio
+API.port = 7810
+API.manageport = 7610
+
+#configuracion de conexion SQLLOCAL
+SQLLOCAL.database=master
+SQLLOCAL.hostname=192.168.99.100
+SQLLOCAL.port=1433
+SQLLOCAL.dbname=SQLLOCAL
+```
 
 End with an example of getting some data out of the system or using it for a little demo
 
