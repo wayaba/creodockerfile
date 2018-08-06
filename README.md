@@ -387,6 +387,38 @@ steps{
 }
 ```
 
+### Referencias para ejecutar SPOCK
+
+Es importante que dentro del root exista el archivo *build.gradle*
+El mismo contiene las dependencias necesarias para poder ejecutar el codigo en el archivo .groovy que contiene las validaciones.
+
+```
+|-- ProjectName
+    |-- build.gradle
+    |-- ...
+    |-- ...
+    |-- App
+	|-- ...
+	|-- ...
+        |-- test
+	        |-- groovy
+		        |-- Specification.groovy
+```
+
+> Un detalle a tener en cuenta es la ruta de donde se aloja el archivo groovy.
+> Si no esta en el root, se debe especificar la misma a traves del siguiente código en el *build.gradle*
+
+```
+sourceSets {
+    test {
+        groovy {
+            srcDirs= ['ApiDir/test/groovy']
+        }
+    }
+}
+```
+
+
 
 ### Stage Tag :pushpin:
 
