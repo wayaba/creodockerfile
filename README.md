@@ -184,7 +184,7 @@ stage('Compilacion')
 ```
 NOTA: Una vez que termina el stage compilacion, el entorno generado con la llamada al docker de ibm se cierra.
 
-### Stage Build Image :art:
+### Stage Build Image :nut_and_bolt:
 
 Lo primero que se debe hacer en este step es la carga de las variables de entorno, para que a la hora de armar la imagen, quede la misma con la configuracion que corresponda al ambiente donde se requiere utilizarla.
 
@@ -305,7 +305,7 @@ sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | \
 sh "cp /tmp/odbc.ini ${params.workspacesdir}"
 ```
 
-### Build de la imagen
+### <a name="buildimagen"></a>Build de la imagen
 
 El build se realiza desde el mismo pipeline invocando al DockerFile contenido en el mismo root del proyecto
 
@@ -323,6 +323,50 @@ sh "rm /tmp/odbc.ini"
 sh "rm ${params.workspacesdir}/odbc.ini"
 ```
 
+### <a name="runimage"></a>Stage Run Image :runner:
+
+Es este momento se corre la imagen previamente generada para verificar el correcto funcionamiento de la aplicacion.
+
+```
+steps{
+	sh "docker run -e LICENSE=accept -d -p ${properties.'API.manageport'}:7600 -p ${properties.'API.port'}:7800 -P --name app-running ace-mascotas"
+}
+```
+> Los puertos son parametrizados con la configuracion seteada en el archivo de properties.
+
+### Stage Testing :see_no_evil:
+
+En este stage se corren test programados en SPOKE para corroborar el correcto funcionamiento de la imagen.
+
+### Stage Tag :pushpin:
+
+Una vez que todos los pasos anteriores fueron exitosos, se procede a la generacion del Tag de la imagen y la limpieza del entorno para una proxima corrida.
+
+```
+steps{			
+	script{
+		CONTAINER_ID = sh (script: 'docker ps -aqf "name=app-running"', returnStdout: true).trim()
+		echo "El id del container es: ${CONTAINER_ID}"
+		VERSION = params.version
+		echo "La nueva version es: ${VERSION}"
+		sh "docker commit ${CONTAINER_ID} elrepo/ace-mascotas:${VERSION}"				
+		echo 'Stoppeo la instancia'
+		sh 'docker stop probando3'
+		echo 'Stoppeo la instancia'
+		sh 'docker rm probando3'
+		
+		//Borro la imagen
+		sh (script: 'docker rmi ace-mascotas')
+		}	
+	}
+```
+
+En el codigo anterior lo primero que se hace es obtener el id del container que se corrio en el stage [run](#runimage).
+Con ese id, se genera el tagueo de la version realizando un *commit*
+
+Una vez tagueado se stoppea la instancia y se borra la misma.
+
+Por ultimo se borra la imagen temporal generada en el paso del [build](#buildimagen)
 
 [ButlerImage]: https://jenkins.io/sites/default/files/jenkins_logo.png
 [website]: https://jenkins.io/
