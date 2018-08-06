@@ -156,7 +156,7 @@ steps {
 }
 ```
 
-### Stage Compilacion :package:
+### Stage Compilación :package:
 En este stage con el codigo bajado de Git, se genera para el BAR a deployar
 
 Se ejecuta la llamada a la imagen de broker oficial v11 [ibmcom/ace](https://hub.docker.com/r/ibmcom/ace/)
@@ -169,7 +169,7 @@ A este comando se le pasan los siguientes parametros
 
 Ejemplo
 ```
-stage('Compilacion')
+stage('Compilación')
 {
 	agent {
 		docker { image 'ibmcom/ace:latest' 
@@ -433,9 +433,9 @@ steps{
 		echo "La nueva version es: ${VERSION}"
 		sh "docker commit ${CONTAINER_ID} elrepo/ace-mascotas:${VERSION}"				
 		echo 'Stoppeo la instancia'
-		sh 'docker stop probando3'
+		sh 'docker stop app-running'
 		echo 'Stoppeo la instancia'
-		sh 'docker rm probando3'
+		sh 'docker rm app-running'
 		
 		//Borro la imagen
 		sh (script: 'docker rmi ace-mascotas')
