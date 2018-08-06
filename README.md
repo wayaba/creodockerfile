@@ -32,7 +32,7 @@ docker cp "C:\tmp\esql-plugin-2.3.3.jar" sonarqube:/opt/sonarqube/extensions/plu
 En SonarQube crear un nuevo proyecto
 Administration->Projects->Management->Create Project
 
-Ingresar Datos para la creacion (Ejemplo)
+Ingresar Datos para la creación (Ejemplo)
 ```
  Name : projSonarDoc
  Key  : projSonarDoc
@@ -41,7 +41,7 @@ Ingresar Datos para la creacion (Ejemplo)
 Por otro lado dentro de SonarQube crear un nuevo usuario con token
 Administration->Security->Users->Create User
 
-Ingresar Datos para la creacion (Ejemplo)
+Ingresar Datos para la creación (Ejemplo)
 ```
  Login: Userjenkins
  Name: Userjenkins
@@ -110,7 +110,7 @@ y guardar los cambios :heavy_check_mark:
 
 ## Codificacion de Jenkinsfile con pipeline
 
-En el pipeline se definen los stages que indican los pasos a seguir en la integracion. Si falla uno, da FAILURE y no se continua con los siguientes.
+En el pipeline se definen los stages que indican los pasos a seguir en la integración. Si falla uno, da FAILURE y no se continua con los siguientes.
 
 ### Parametros
 Se escribe al comienzo del pipeline y especifica los parametros de entrada para la llamada desde jenkins
@@ -128,7 +128,7 @@ parameters {
 ```
 
 ### Stage SonarQube :satellite:
-Dentro de este stage se configura la vinculacion del proyecto de sonar con el server configurado en jenkins
+Dentro de este stage se configura la vinculación del proyecto de sonar con el server configurado en jenkins
 
 De esta forma los valores del ejemplo corresponden a:
 
@@ -160,12 +160,12 @@ steps {
 En este stage con el codigo bajado de Git, se genera para el BAR a deployar
 
 Se ejecuta la llamada a la imagen de broker oficial v11 [ibmcom/ace](https://hub.docker.com/r/ibmcom/ace/)
-Para armar el entorno de ejecucion y poder correr el comando [mqsipackagebar](https://www.ibm.com/support/knowledgecenter/en/SSTTDS_11.0.0/com.ibm.etools.mft.doc/bc31720_.htm)
+Para armar el entorno de ejecución y poder correr el comando [mqsipackagebar](https://www.ibm.com/support/knowledgecenter/en/SSTTDS_11.0.0/com.ibm.etools.mft.doc/bc31720_.htm)
 A este comando se le pasan los siguientes parametros
 
 - -w : ruta del workspace de trabajo (parametro desde Jenkins)
 - -a : nombre del bar (el nombre es lo de menos, lo importante es la ruta donde se va a crear. En este caso en el workspace)
-- -k : el nombre de la aplicacion a compilar dentro del workspace
+- -k : el nombre de la aplicación a compilar dentro del workspace
 
 Ejemplo
 ```
@@ -182,11 +182,11 @@ stage('Compilacion')
 					
 }
 ```
-NOTA: Una vez que termina el stage compilacion, el entorno generado con la llamada al docker de ibm se cierra.
+NOTA: Una vez que termina el stage compilación, el entorno generado con la llamada al docker de Ibm se cierra.
 
 ### Stage Build Image :nut_and_bolt:
 
-Lo primero que se debe hacer en este step es la carga de las variables de entorno, para que a la hora de armar la imagen, quede la misma con la configuracion que corresponda al ambiente donde se requiere utilizarla.
+Lo primero que se debe hacer en este step es la carga de las variables de entorno, para que a la hora de armar la imagen, quede la misma con la configuración que corresponda al ambiente donde se requiere utilizarla.
 
 Para esto deben existir archivos de propiedades por ambiente.
 Los mismos estan actualmente situados en el root del proyecto
@@ -210,8 +210,7 @@ Ej.
         |-- restapi.descriptor
 ```
 
-El formato dentro de cada archivo para alojar las variables es el de nombre = valor
-Ej.
+> El formato dentro de cada archivo para alojar las variables es el de nombre = valor
 
 ```
 #configuracion servicio
@@ -235,7 +234,7 @@ Una vez instalado, dentro del Jenkins file, al comienzo del archivo fuera del co
 properties = null
 ```
 
-debajo de esa definicion se escribe la funcion que lee las propiedades del archivo
+debajo de esa definición se escribe la función que lee las propiedades del archivo
 
 ```
 def loadProperties(String env='desa') {
@@ -250,9 +249,9 @@ def loadProperties(String env='desa') {
 
 Dentro del pipeline para la carga de la variable properties, lo que se debe hacer es la llamada de la función dentro de un step.
 
-> El valor de params.environment viene como parametro de entrada del front-end de Jenkins a la hora de la invocacion de la Tarea
+> El valor de params.environment viene como parametro de entrada del front-end de Jenkins a la hora de la invocación de la Tarea
 
-```ruby
+```
 steps{
 	echo "Cargo propiedades"
 	script{
@@ -285,7 +284,7 @@ La estructura seria la siguiente:
 	        |-- odbc.ini
 ```
 
-El odbc.ini tendria algo similar a esta estructura:
+El odbc.ini debería tener esta estructura:
 
 ```
 [SQLLOCAL]
@@ -357,7 +356,7 @@ RUN bash -c 'mqsisetdbparms -w /home/aceuser/ace-server -n $dbname -u $dbuser -p
 ```
 ### <a name="runimage"></a>Stage Run Image :runner:
 
-Es este momento se corre la imagen previamente generada para verificar el correcto funcionamiento de la aplicación.
+Es este momento se levanta una instancia de la imagen previamente generada.
 
 ```
 steps{
