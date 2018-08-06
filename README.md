@@ -369,6 +369,25 @@ steps{
 
 En este stage se corren test programados en SPOKE para corroborar el correcto funcionamiento de la imagen.
 
+Para poder correr un test con el framework Spock, es necesario la ejecución de Gradle
+
+Dentro del Jenkinsfile en la seccion del pipeline se debe invocar la referencia a la herramienta
+
+```
+tools { 
+        gradle 'gradle-jenkins' 
+    }
+```
+De esta forma tenemos acceso al comando *gradle* dentro del step para ejecutar la llamada al groovy que contiene el spock.
+
+```
+steps{
+	echo 'Ejecuto la validacion de SPOCK'
+	sh 'gradle clean test'
+}
+```
+
+
 ### Stage Tag :pushpin:
 
 Una vez que todos los pasos anteriores fueron exitosos, se procede a la generación del Tag de la imagen y la limpieza del entorno para una próxima corrida.
