@@ -265,6 +265,43 @@ Una vez invocada la funcion, a forma de referenciar las propiedades es la siguie
 ${properties.'SQLLOCAL.port'}
 ```
 
+### Modificacion odbc.ini
+
+Para la configuracion de las conexiones es necesario modificar el odbc.ini de la imagen a generar.
+Para esto, cada proyecto debe contener dentro de la carpeta conecciones, un odbc.ini preparado para realizar replace de las conexiones a utilizar
+
+Por ejemplo
+
+```
+[SQLLOCAL]
+Driver=#SQLLOCAL.installdir#/server/ODBC/drivers/lib/UKsqls95.so
+Description=Conexion SQL para docker local de serverSQL
+AnsiNPW=1
+LoginTimeout=0
+QueryTimeout=0
+Database=#SQLLOCAL.database#
+HostName=#SQLLOCAL.hostname#
+PortNumber=#SQLLOCAL.port#
+```
+
+donde #SQLLOCAL.database# es el string a reemplazar por el valor de la misma variable en el archivo desa.properties
+
+```
+SQLLOCAL.database=master
+```
+
+Un ejemplo de los replace a realizar es el siguiente:
+
+```
+echo "Realizo replace en odbc.ini"
+sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | \
+	sed -e 's,#SQLLOCAL.port#,${properties.'SQLLOCAL.port'},' \
+	-e 's,#SQLLOCAL.database#,${properties.'SQLLOCAL.database'},' \
+	-e 's,#SQLLOCAL.hostname#,${properties.'SQLLOCAL.hostname'},' \
+	-e 's,#SQLLOCAL.installdir#,${params.mqsihome},' \
+	> /tmp/odbc.ini"				
+sh "cp /tmp/odbc.ini ${params.workspacesdir}"
+```
 
 [ButlerImage]: https://jenkins.io/sites/default/files/jenkins_logo.png
 [website]: https://jenkins.io/
