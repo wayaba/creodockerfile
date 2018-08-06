@@ -1,7 +1,7 @@
 # Integración Continua con Jenkins
 [![][ButlerImage]][website]
 
- - Integración continua manjeada con pipeline de Jenkins.
+ - Integración continua manejada con pipeline de Jenkins.
 
 ## Prerrequisitos
 
@@ -28,7 +28,7 @@ docker cp "C:\tmp\esql-plugin-2.3.3.jar" sonarqube:/opt/sonarqube/extensions/plu
 ```
 ## Pasos :feet:
 
-## <a name="configsonar"></a>Configuracion de Sonarqube
+## <a name="configsonar"></a>Configuración de Sonarqube
 En SonarQube crear un nuevo proyecto
 Administration->Projects->Management->Create Project
 
@@ -53,9 +53,9 @@ En Generate Tokens ingresar la key del proyeto creado anteriormente "projSonarDo
 ```
 Token generado: 31ee76df78c1475c4b347aa0db46498a987c28ed
 ```
-## <a name="sonarjenkins"></a>Configuracion Sonarqube en Jenkins
+## <a name="sonarjenkins"></a>Configuración Sonarqube en Jenkins
 
-### <a name="sonarjenkins1">Configuracion de plugin SonarQube
+### <a name="sonarjenkins1">Configuración de plugin SonarQube
 
 Dentro de Manage Jenikins->Manage Plugins, buscar e instalar el plugin ["SonarQube Scanner"](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins)
 
@@ -248,7 +248,7 @@ def loadProperties(String env='desa') {
 }
 ```
 
-Dentro del pipeline para la carga de la variable properties, lo que se debe hacer es la llamada de la funcion dentro de un step.
+Dentro del pipeline para la carga de la variable properties, lo que se debe hacer es la llamada de la función dentro de un step.
 
 > El valor de params.environment viene como parametro de entrada del front-end de Jenkins a la hora de la invocacion de la Tarea
 
@@ -261,7 +261,7 @@ steps{
 }
 ```
 
-Una vez invocada la funcion, a forma de referenciar las propiedades es la siguiente:
+Una vez invocada la función, a forma de referenciar las propiedades es la siguiente:
 
 ```
 ${properties.'SQLLOCAL.port'}
@@ -269,10 +269,23 @@ ${properties.'SQLLOCAL.port'}
 
 ### Modificacion odbc.ini
 
-Para la configuracion de las conexiones es necesario modificar el odbc.ini de la imagen a generar.
-Para esto, cada proyecto debe contener dentro de la carpeta conecciones, un odbc.ini preparado para realizar replace de las conexiones a utilizar
+Para la configuración de las conexiones es necesario modificar el odbc.ini de la imagen a generar.
+Para esto, cada proyecto debe contener dentro de la carpeta connections un odbc.ini preparado para realizar replace de las conexiones a utilizar
 
-Por ejemplo
+La estructura seria la siguiente:
+```
+|-- ProjectName
+    |-- desa.properties
+    |-- ...
+    |-- ...
+    |-- App
+	|-- ...
+	|-- ...
+        |-- connections
+	        |-- odbc.ini
+```
+
+El odbc.ini tendria algo similar a esta estructura:
 
 ```
 [SQLLOCAL]
@@ -325,14 +338,14 @@ sh "rm ${params.workspacesdir}/odbc.ini"
 
 ### <a name="runimage"></a>Stage Run Image :runner:
 
-Es este momento se corre la imagen previamente generada para verificar el correcto funcionamiento de la aplicacion.
+Es este momento se corre la imagen previamente generada para verificar el correcto funcionamiento de la aplicación.
 
 ```
 steps{
 	sh "docker run -e LICENSE=accept -d -p ${properties.'API.manageport'}:7600 -p ${properties.'API.port'}:7800 -P --name app-running ace-mascotas"
 }
 ```
-> Los puertos son parametrizados con la configuracion seteada en el archivo de properties.
+> Los puertos son parametrizados con la configuración seteada en el archivo de properties.
 
 ### Stage Testing :see_no_evil:
 
@@ -340,7 +353,7 @@ En este stage se corren test programados en SPOKE para corroborar el correcto fu
 
 ### Stage Tag :pushpin:
 
-Una vez que todos los pasos anteriores fueron exitosos, se procede a la generacion del Tag de la imagen y la limpieza del entorno para una proxima corrida.
+Una vez que todos los pasos anteriores fueron exitosos, se procede a la generación del Tag de la imagen y la limpieza del entorno para una próxima corrida.
 
 ```
 steps{			
@@ -361,12 +374,12 @@ steps{
 	}
 ```
 
-En el codigo anterior lo primero que se hace es obtener el id del container que se corrio en el stage [run](#runimage).
-Con ese id, se genera el tagueo de la version realizando un *commit*
+En el código anterior lo primero que se hace es obtener el id del container que se corrió en el stage [run](#runimage).
+Con ese id, se genera el tagueo de la versión realizando un *commit*
 
 Una vez tagueado se stoppea la instancia y se borra la misma.
 
-Por ultimo se borra la imagen temporal generada en el paso del [build](#buildimagen)
+Por último se borra la imagen temporal generada en el paso del [build](#buildimagen)
 
 [ButlerImage]: https://jenkins.io/sites/default/files/jenkins_logo.png
 [website]: https://jenkins.io/
