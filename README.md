@@ -250,6 +250,8 @@ def loadProperties(String env='desa') {
 
 Dentro del pipeline para la carga de la variable properties, lo que se debe hacer es la llamada de la funcion dentro de un step.
 
+> El valor de params.environment viene como parametro de entrada del front-end de Jenkins a la hora de la invocacion de la Tarea
+
 ```ruby
 steps{
 	echo "Cargo propiedades"
@@ -284,13 +286,13 @@ HostName=#SQLLOCAL.hostname#
 PortNumber=#SQLLOCAL.port#
 ```
 
-> donde #SQLLOCAL.database# es el string a reemplazar por el valor de la misma variable en el archivo desa.properties
+Donde #SQLLOCAL.database# es el string a reemplazar por el valor de la misma variable en el archivo desa.properties
 
 ```
 SQLLOCAL.database=master
 ```
 
-> Una manera de realizar los reemplazos en el pipeline es la siguiente:
+ Una manera de realizar los reemplazos en el pipeline es la siguiente:
 
 ```
 echo "Realizo replace en odbc.ini"
@@ -301,6 +303,24 @@ sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | \
 	-e 's,#SQLLOCAL.installdir#,${params.mqsihome},' \
 	> /tmp/odbc.ini"				
 sh "cp /tmp/odbc.ini ${params.workspacesdir}"
+```
+
+### Build de la imagen
+
+El build se realiza desde el mismo pipeline invocando al DockerFile contenido en el mismo root del proyecto
+
+> Al ejecutar el build, se crea una imagen temporal del broker con el bar embebido.
+
+```
+sh "docker build -t ace-mascotas --build-arg dbname=${properties.'SQLLOCAL.dbname'} --build-arg dbuser=${properties.'SQLLOCAL.dbuser'} --build-arg dbpass=${properties.'SQLLOCAL.dbpass'} ."
+```
+
+Luego del build se limpian los archivos temporales
+
+```
+//borro odbc.ini del workspace y del tmp
+sh "rm /tmp/odbc.ini"
+sh "rm ${params.workspacesdir}/odbc.ini"
 ```
 
 
