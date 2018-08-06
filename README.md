@@ -55,9 +55,12 @@ Token generado: 31ee76df78c1475c4b347aa0db46498a987c28ed
 ```
 ## <a name="sonarjenkins"></a>Configuracion Sonarqube en Jenkins
 
-### <a name="sonarjenkins1">En Jenkins instalar el plugin "SonarQube Scanner"
+### <a name="sonarjenkins1">Configuracion de plugin SonarQube
 
-Dentro de Manage Jenkins->Global Tool Configuration
+Dentro de Manage Jenikins->Manage Plugins, buscar e instalar el plugin ["SonarQube Scanner"](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins)
+
+
+Una vez hecho esto, dentro de Manage Jenkins->Global Tool Configuration
 En la seccion SonarQube Scanner agregar un SonarQube Scanner presionando el boton de Add
 Ingresar (por ejemplo)
 ```
