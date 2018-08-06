@@ -53,25 +53,26 @@ En Generate Tokens ingresar la key del proyeto creado anteriormente "projSonarDo
 ```
 Token generado: 31ee76df78c1475c4b347aa0db46498a987c28ed
 ```
-## Configuracion Sonarqube en Jenkins
+## <a name="sonarjenkins"></a>Configuracion Sonarqube en Jenkins
 
-* En Jenkins instalar el plugin "SonarQube Scanner"
+### <a name="sonarjenkins1">En Jenkins instalar el plugin "SonarQube Scanner"
 
 Dentro de Manage Jenkins->Global Tool Configuration
 En la seccion SonarQube Scanner agregar un SonarQube Scanner presionando el boton de Add
 Ingresar (por ejemplo)
 ```
 Name : sonnar-jenkins
-- [x] Install automatically
 ```
+- [x] Install automatically
+
 y guardar los cambios :heavy_check_mark:
 
-Luego dentro de Manage Jenkins->Configure System agregar el vinculo al servidor de sonarQube previamente instalado.
-En la seccion SonarQube servers agregar los datos del servidor (por ejemplo)
+### <a name="sonarjenkins2"> Configurar vinculo entre Jenkins y server de SonarQube
+
+Dentro de Manage Jenkins->Configure System, en la seccion SonarQube servers agregar los datos del servidor (por ejemplo)
 - Environment variables
-```
 - [x]  Enable injection of SonarQube server configuration as build environment variables
-```
+
 - SonarQube installations
 ```
  Name : sonarqube
@@ -128,10 +129,10 @@ Dentro de este stage se configura la vinculacion del proyecto de sonar con el se
 
 De esta forma los valores del ejemplo corresponden a:
 
- - sonnar-jenkins : Nombre del sonar scanner configurado dentro de Jenkins en Manage Jenkins->Global Tool Configuration
- - sonarqube : Nombre del servidor de Sonar configurado dentro de Jenkins en Manage Jenkins->Configure System
+ - sonnar-jenkins : Nombre del sonar scanner configurado dentro de Jenkins [Link](#sonarjenkins1)
+ - sonarqube : Nombre del servidor de Sonar configurado dentro de Jenkins [Link](#sonarjenkins2)
  - Dsonar.projectKey : Key creado dentro del proyecto en el servidor de SonarQube [Link](#configsonar)
- - Dsonar.projectname : Key creado dentro del proyecto en el servidor de SonarQube (Configuracion de Sonarqube)
+ - Dsonar.projectname : Key creado dentro del proyecto en el servidor de SonarQube [Link](#configsonar)
  - Dsonar.sources : Indica la ruta dentro del proyecto los archivos a escanear
  - Dsonar.language : el lenguaje que se quiere validar. En este caso ESQL (esql-plugin-2.3.3.jar)
 
