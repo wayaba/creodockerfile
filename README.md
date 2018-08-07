@@ -117,7 +117,7 @@ Se escribe al comienzo del pipeline y especifica los parametros de entrada para 
 Los valores por defecto deberian cambiar con cada proyecto
 
 Ejemplo:
-```
+```Python
 parameters {	
 	string(name: 'mqsihome', defaultValue: '/opt/ibm/ace-11.0.0.0', description: '')
 	string(name: 'workspacesdir', defaultValue: '/var/jenkins_home/workspace/imagenconbar', description: '')
@@ -140,7 +140,7 @@ De esta forma los valores del ejemplo corresponden a:
  - Dsonar.language : el lenguaje que se quiere validar. En este caso ESQL (esql-plugin-2.3.3.jar)
 
 Ejemplo:
-```
+```Python
 steps {	
 	script {
 		def scannerHome = tool 'sonnar-jenkins'
@@ -168,7 +168,7 @@ A este comando se le pasan los siguientes parametros
 - -k : el nombre de la aplicación a compilar dentro del workspace
 
 Ejemplo
-```
+```Python
 stage('Compilación')
 {
 	agent {
@@ -212,7 +212,7 @@ Ej.
 
 > El formato dentro de cada archivo para alojar las variables es el de nombre = valor
 
-```
+```Ini
 #configuracion servicio
 API.port = 7810
 API.manageport = 7610
@@ -230,13 +230,13 @@ Para la lectura de los archivos de properties dentro del Jenkinsfile es necesari
 
 Una vez instalado, dentro del Jenkins file, al comienzo del archivo fuera del contexto de pipeline, se define la variable que contendra la referencia al archivo de propiedades
 
-```
+```Python
 properties = null
 ```
 
 debajo de esa definición se escribe la función que lee las propiedades del archivo
 
-```
+```Python
 def loadProperties(String env='desa') {
     node {
         checkout scm
@@ -251,7 +251,7 @@ Dentro del pipeline para la carga de la variable properties, lo que se debe hace
 
 > El valor de params.environment viene como parametro de entrada del front-end de Jenkins a la hora de la invocación de la Tarea
 
-```
+```Python
 steps{
 	echo "Cargo propiedades"
 	script{
@@ -286,7 +286,7 @@ La estructura seria la siguiente:
 
 El odbc.ini debería tener esta estructura:
 
-```
+```Ini
 [SQLLOCAL]
 Driver=#SQLLOCAL.installdir#/server/ODBC/drivers/lib/UKsqls95.so
 Description=Conexion SQL para docker local de serverSQL
@@ -300,13 +300,13 @@ PortNumber=#SQLLOCAL.port#
 
 Donde #SQLLOCAL.database# es el string a reemplazar por el valor de la misma variable en el archivo desa.properties
 
-```
+```Ini
 SQLLOCAL.database=master
 ```
 
  Una manera de realizar los reemplazos en el pipeline es la siguiente:
 
-```
+```Python
 echo "Realizo replace en odbc.ini"
 sh "cat ${params.workspacesdir}/${params.appname}/connections/odbc.ini | \
 	sed -e 's,#SQLLOCAL.port#,${properties.'SQLLOCAL.port'},' \
@@ -358,7 +358,7 @@ RUN bash -c 'mqsisetdbparms -w /home/aceuser/ace-server -n $dbname -u $dbuser -p
 
 Es este momento se levanta una instancia de la imagen previamente generada.
 
-```
+```Python
 steps{
 	sh "docker run -e LICENSE=accept -d -p ${properties.'API.manageport'}:7600 -p ${properties.'API.port'}:7800 -P --name app-running ace-mascotas"
 }
@@ -373,14 +373,14 @@ Para poder correr un test con el framework Spock, es necesario la ejecución de 
 
 Dentro del Jenkinsfile en la seccion del pipeline se debe invocar la referencia a la herramienta
 
-```
+```Python
 tools { 
         gradle 'gradle-jenkins' 
     }
 ```
 De esta forma tenemos acceso al comando *gradle* dentro del step para ejecutar la llamada al groovy que contiene el spock.
 
-```
+```Python
 steps{
 	echo 'Ejecuto la validacion de SPOCK'
 	sh 'gradle clean test'
@@ -408,7 +408,7 @@ El mismo contiene las dependencias necesarias para poder ejecutar el codigo en e
 > Un detalle a tener en cuenta es la ruta de donde se aloja el archivo groovy.
 > Si no esta en el root, se debe especificar la misma a traves del siguiente código en el *build.gradle*
 
-```
+```Python
 sourceSets {
     test {
         groovy {
@@ -424,7 +424,7 @@ sourceSets {
 
 Una vez que todos los pasos anteriores fueron exitosos, se procede a la generación del Tag de la imagen y la limpieza del entorno para una próxima corrida.
 
-```
+```Python
 steps{			
 	script{
 		CONTAINER_ID = sh (script: 'docker ps -aqf "name=app-running"', returnStdout: true).trim()
