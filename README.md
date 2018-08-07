@@ -338,12 +338,12 @@ sh "rm ${params.workspacesdir}/odbc.ini"
 El Dockerfile es sobre el que se realiza el build.
 En el mismo se indica que la contrucción de la imagen se realiza en base a la imagen [ppedraza/ace](https://hub.docker.com/r/ppedraza/ace/)
 
-```
+```Dockerfile
 FROM ppedraza/ace
 ```
 Este archivo recibe por parámetros los datos para la conexion con la DB
 
-```
+```Dockerfile
 ARG dbname
 ARG dbuser
 ARG dbpass
@@ -351,7 +351,7 @@ ARG dbpass
 
 Al final del mismo luego de copiar el odbc.ini y el bar en sus directorios correspondientes se ejecuta el [mqsisetdbparms](https://www.ibm.com/support/knowledgecenter/en/SSTTDS_11.0.0/com.ibm.etools.mft.doc/an09155_.htm) para el seteo de la conexión
 
-```
+```Dockerfile
 RUN bash -c 'mqsisetdbparms -w /home/aceuser/ace-server -n $dbname -u $dbuser -p $dbpass'
 ```
 ### <a name="runimage"></a>Stage Run Image :runner:
